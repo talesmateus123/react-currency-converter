@@ -2,7 +2,7 @@
 
 This repository is an example of a project that implements the react js resources, the consumption of a rest API using "axios", the styling library "FontAwesome", and finally, the testing-library to test the application.
 
-## Instructions to execute this project
+## Instructions for running this project
 
 In the project directory, you can run:
 
