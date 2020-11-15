@@ -78,7 +78,11 @@ function CurrencyConverter() {
         >
           Error when converting: {errorMsg}. Please try again later.
         </Alert>
-        <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal 
+          show={showModal} 
+          onHide={handleCloseModal} 
+          data-testid="modal"
+        >
           <Modal.Header closeButton>
             <Modal.Title>Conversion</Modal.Title>
           </Modal.Header>
@@ -131,6 +135,7 @@ function CurrencyConverter() {
               <Button
                 variant="success"
                 type="submit"
+                data-testid="btn-converter"
               >
                 <span className={!showSpinner && 'hidden'}>
                   <Spinner 
