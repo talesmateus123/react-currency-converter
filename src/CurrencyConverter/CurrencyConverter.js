@@ -20,10 +20,15 @@ function CurrencyConverter() {
   const [fromCurrency, setFromCurrency] = useState('BRL')
   const [toCurrency, setToCurrency] = useState('USD')
   const [showSpinner, setShowSpinner] = useState(false)
+  const [validatedForm, setValidatedForm] = useState(false)
 
   const toConvert = event => {
     event.preventDefault()
-    
+    setValidatedForm(true)
+    if(event.currentTarget.checkValidity() === true) {
+      // TODO Implements call to fixer.io
+      
+    }
   }
 
   return (
@@ -49,7 +54,7 @@ function CurrencyConverter() {
           </Modal.Footer>
         </Modal>
         <h1>Currency Converter</h1>
-        <Form onSubmit={toConvert} noValidate>
+        <Form onSubmit={toConvert} noValidate validated={validatedForm}>
           <Form.Row>
             <Col sm="3">
               <Form.Control
