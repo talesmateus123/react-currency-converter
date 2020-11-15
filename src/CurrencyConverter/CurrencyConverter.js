@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './CurrencyConverter.css';
 import { 
   Jumbotron, 
@@ -12,7 +12,20 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 
+import ListCurrencies from './ListCurrencies/ListCurrencies'
+
 function CurrencyConverter() {
+
+  const [value, setValue] = useState('1')
+  const [fromCurrency, setFromCurrency] = useState('BRL')
+  const [toCurrency, setToCurrency] = useState('USD')
+  const [showSpinner, setShowSpinner] = useState(false)
+
+  const toConvert = event => {
+    event.preventDefault()
+    
+  }
+
   return (
     <div>
       <Jumbotron>
@@ -36,19 +49,24 @@ function CurrencyConverter() {
           </Modal.Footer>
         </Modal>
         <h1>Currency Converter</h1>
-        <Form>
+        <Form onSubmit={toConvert} noValidate>
           <Form.Row>
             <Col sm="3">
               <Form.Control
                 placeholder="0"
-                value={1}
+                value={value}
+                onChange={event => setValue(event.target.value.replace(/\D/g, ''))}
                 required
                />
             </Col>
             <Col sm="3">
               <Form.Control 
                 as="select"
-              />
+                value={fromCurrency}
+                onChange={event => setFromCurrency(event.target.value)}
+              >
+                <ListCurrencies />
+              </Form.Control>
             </Col>
             <Col sm="1">
               <FontAwesomeIcon 
@@ -60,18 +78,26 @@ function CurrencyConverter() {
             <Col sm="3">
               <Form.Control 
                 as="select"
-              />
+                value={toCurrency}
+                onChange={event => setToCurrency(event.target.value)}
+              >
+                <ListCurrencies />
+              </Form.Control>
             </Col>
             <Col sm="2">
               <Button
                 variant="success"
                 type="submit"
               >
-                <Spinner 
-                  animation="border"
-                  size="sm"
-                />
-                Converter
+                <span className={!showSpinner && 'hidden'}>
+                  <Spinner 
+                    animation="border"
+                    size="sm"
+                  />
+                </span>
+                <span className={showSpinner && 'hidden'}>
+                  Converter
+                </span>
               </Button>
             </Col>
           </Form.Row>
