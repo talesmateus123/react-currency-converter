@@ -21,13 +21,24 @@ function CurrencyConverter() {
   const [toCurrency, setToCurrency] = useState('USD')
   const [showSpinner, setShowSpinner] = useState(false)
   const [validatedForm, setValidatedForm] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [resultConversion, setResultConversion] = useState('')
+
+  const handleCloseModal = event => {
+    setValue('1')
+    setFromCurrency('BRL')
+    setToCurrency('USD')
+    setValidatedForm(false)
+    setShowModal(false)
+  }
 
   const toConvert = event => {
     event.preventDefault()
     setValidatedForm(true)
     if(event.currentTarget.checkValidity() === true) {
       // TODO Implements call to fixer.io
-      
+      setShowModal(true)
+
     }
   }
 
@@ -40,15 +51,15 @@ function CurrencyConverter() {
         >
           Error when converting, please try again later.
         </Alert>
-        <Modal show={false}>
+        <Modal show={showModal} onHide={handleCloseModal}>
           <Modal.Header closeButton>
             <Modal.Title>Conversion</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Result:
+            {resultConversion}
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="success">
+            <Button variant="success" onClick={handleCloseModal}>
               New conversion
             </Button>
           </Modal.Footer>
